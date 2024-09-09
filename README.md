@@ -7,6 +7,7 @@ this repository will contain all the challenges of the 100 days of python
     4-  Challenge 4 Treasure Island                 [X]
     5-  Challenge 5 customise pizza                 [X]
     6-  Challenge 6 rock paper scissor              [X]
+    6-  Challenge 6_2 who will pay the bill         [X]
     7-  Challenge 7 password generator              [X]
     8-  Challenge 8 Hangman game                    [X]
     9-  Challenge 9 caesar cipher                   [X]
