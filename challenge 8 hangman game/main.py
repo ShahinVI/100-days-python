@@ -6,71 +6,99 @@ import random
 # Delete this line: word_list = ["ardvark", "baboon", "camel"]
 from hangman_words import word_list
 
-chosen_word = random.choice(word_list)
-word_length = len(chosen_word)
+def start_game():
+    chosen_word = random.choice(word_list)
+    word_length = len(chosen_word)
 
-end_of_game = False
-lives = 6
+    end_of_game = False
+    lives = 6
 
-alp_letters = "a b c d e f g h i j k l m n o p q r s t u v w x y z "
-letters_used=[]
+    alp_letters = "a b c d e f g h i j k l m n o p q r s t u v w x y z "
+    letters_used=[]
 
-# TODO-3: - Import the logo from hangman_art.py and print it at the start of the game.
-from hangman_art import logo
+    # TODO-3: - Import the logo from hangman_art.py and print it at the start of the game.
+    from hangman_art import logo
 
-print(logo)
+    print(logo)
 
-# Testing code
-print(f'Pssst, the solution is {chosen_word}.')
+    # Testing code
+    print(f'Pssst, the solution is {chosen_word}.')
 
-# Create blanks
-display = []
-for _ in range(word_length):
-    display += "_"
+    # Create blanks
+    display = []
+    for _ in range(word_length):
+        display += "_"
 
-while not end_of_game:
-    print(f"Letters not used:\n{alp_letters}")
-    print(f"Letters used:")
-    print(*letters_used)
-    guess = input("Guess a letter: ").lower()
+    while not end_of_game:
+        print(f"Letters not used:\n{alp_letters}")
+        print(f"Letters used:")
+        print(*letters_used)
+        guess = input("Guess a letter: ").lower()
 
-    # TODO-4: - If the user has entered a letter they've already guessed, print the letter and let them know.
-    if guess in display:
-        print(f"You've already guessed {guess}\n")
-        continue
-    elif not guess in alp_letters:
-        print(f"You've already guessed {guess}\n")
-        continue
+        # TODO-4: - If the user has entered a letter they've already guessed, print the letter and let them know.
+        if guess in display:
+            print(f"You've already guessed {guess}\n")
+            continue
+        elif not guess in alp_letters:
+            print(f"You've already guessed {guess}\n")
+            continue
 
-    alp_letters=alp_letters.replace(guess+' ', '')
-    letters_used.append(guess)
-    letters_used.sort()
-    # Check guessed letter
-    for position in range(word_length):
-        letter = chosen_word[position]
-        # print(f"Current position: {position}\n Current letter: {letter}\n Guessed letter: {guess}")
-        if letter == guess:
-            display[position] = letter
+        alp_letters=alp_letters.replace(guess+' ', '')
+        letters_used.append(guess)
+        letters_used.sort()
+        # Check guessed letter
+        for position in range(word_length):
+            letter = chosen_word[position]
+            # print(f"Current position: {position}\n Current letter: {letter}\n Guessed letter: {guess}")
+            if letter == guess:
+                display[position] = letter
 
-    # Check if user is wrong.
-    if guess not in chosen_word:
-        # TODO-5: - If the letter is not in the chosen_word, print out the letter and let them know it's not in the word.
-        print(f"You guessed {guess}, that's not in the word. You lose a life.")
+        # Check if user is wrong.
+        if guess not in chosen_word:
+            # TODO-5: - If the letter is not in the chosen_word, print out the letter and let them know it's not in the word.
+            print(f"You guessed {guess}, that's not in the word. You lose a life.")
 
-        lives -= 1
-        if lives == 0:
+            lives -= 1
+            if lives == 0:
+                end_of_game = True
+                print(f"You lose. The word was {chosen_word}")
+
+        # Join all the elements in the list and turn it into a String.
+        print(f"{' '.join(display)}")
+
+        # Check if user has got all letters.
+        if "_" not in display:
             end_of_game = True
-            print(f"You lose. The word was {chosen_word}")
+            print("You win.")
 
-    # Join all the elements in the list and turn it into a String.
-    print(f"{' '.join(display)}")
 
-    # Check if user has got all letters.
-    if "_" not in display:
-        end_of_game = True
-        print("You win.")
+        # TODO-2: - Import the stages from hangman_art.py and make this error go away.
+        from hangman_art import stages
 
-    # TODO-2: - Import the stages from hangman_art.py and make this error go away.
-    from hangman_art import stages
+        print(stages[lives])
+    return input("do you want to start the game again? (Y/N) ")
 
-    print(stages[lives])
+def main():
+    game_on = True
+    answer = input("do you want to start the game (Y/N) ")
+    while game_on == True:
+        if answer.lower() == "y":
+            answer=start_game()
+        elif answer.lower() == "n":
+            exit_pending  = True
+            while exit_pending == True:
+                answer2 = input("do you want to exit the game (Y/N) ")
+                if answer2.lower() == "y":
+                    game_on = False
+                    exit_pending = False
+                    print("BYE!")
+                elif answer2.lower() == "n":
+                    exit_pending = False
+                    answer = input("do you want to start the game (Y/N) ")
+                else:
+                    print("please enter a valid answer")
+        else:
+            print("please enter a valid answer")
+
+if __name__ == "__main__":
+    main()
