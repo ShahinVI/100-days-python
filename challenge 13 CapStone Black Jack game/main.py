@@ -37,9 +37,9 @@ class black_jack():
 
     dealt_card = []
 
-    def __init__(self,seed_rand=None):
-        if not seed_rand == None:
-            self.seed_rand=seed_rand
+    def __init__(self,seed_rand_u=None):
+        if not seed_rand_u == None:
+            self.seed_rand=seed_rand_u
         #seed_rand = int(input("Create a seed number: "));
         random.seed(self.seed_rand);
 
@@ -81,8 +81,8 @@ class hand():
         return self
         #return hand.card_hand
 
-    def split_cards(self,blackjack):
-        hand2 = hand(player="second hand",card_hand=self.card_hand[1])
+    def split_cards(self, blackjack):
+        hand2 = hand(player="second hand", card_hand=self.card_hand[1])
         hand2 = hand2.draw_card(blackjack=blackjack)
         hand2 = hand2.calculate_score(blackjack=blackjack)
         self.card_hand.pop(1)

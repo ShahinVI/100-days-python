@@ -1,6 +1,10 @@
-from replit import clear
+#from replit import clear
 #HINT: You can call clear() to clear the output in the console.
 from art import logo
+
+
+def clear():
+    print("\n"*300)
 
 bidders={}
 
